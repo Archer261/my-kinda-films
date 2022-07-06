@@ -1,7 +1,51 @@
-.header {
-    font-family: 'Limelight', cursive;
+:root {
+    background-color: rgb(58, 30, 80);
+    text-align: center;
+    display: inline-block;
 }
 
 *{
-    font-family:'Manrope', sans-serif;
+    font-family: 'Signika Negative', sans-serif;
+
+}
+
+h1 {
+    font-family: 'Limelight', cursive;
+    background-color: rgb(35, 3, 50);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 18px;
+    border-radius: 15px;
+    border: solid 5px rgb(123, 101, 2);
+}
+
+.intro-div {
+    background-color: rgb(35, 3, 50);
+    border-radius: 15px;
+    border: solid 5px rgb(123, 101, 2);
+    margin-bottom: 15px;
+    padding: 0px 15px 15px 15px;
+}
+
+p {
+    font-size: 150%;
+}
+
+.saved-button, .remove-button, .home-button {
+    background-color: rgb(35, 3, 50);
+    padding: 15px;
+    border-radius: 15px;
+    border: solid 3px rgb(123, 101, 2);
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 120%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.saved-button:hover, .home-button:hover {
+    box-shadow: 3px 3px 3px rgb(251, 186, 251);
+}
+
+.home-button{
+    margin-top: 35px;
 }
