@@ -32,7 +32,7 @@ p {
     font-size: 150%;
 }
 
-.saved-button, .remove-button, .home-button {
+.saved-button, .remove-button, .home-button, .custom-button {
     background-color: rgb(35, 3, 50);
     padding: 15px;
     border-radius: 15px;
@@ -42,10 +42,16 @@ p {
     -webkit-tap-highlight-color: transparent;
 }
 
-.saved-button:hover, .home-button:hover {
+.saved-button:hover, .home-button:hover, .custom-button:hover {
     box-shadow: 3px 3px 3px rgb(251, 186, 251);
 }
 
 .home-button{
     margin-top: 35px;
+}
+
+.saved-button, .home-button {
+    position: absolute;
+    top: 45px;
+    left: 45px;
 }
