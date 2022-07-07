@@ -22,6 +22,8 @@ var questions =
     ];
 
 
+
+
 /*Container variables*/
 
 //const strtBtn = ;
@@ -30,9 +32,23 @@ const questionDiv = document.getElementById('question');
 const answerDiv = document.getElementById('answer');
 
 
-function storeAnswer(event) {
-
+function storeAnswer(val) {
+    event.preventDefault();
+    localStorage.setItem(val.target.id, val.target.value)
+    //console.log(val.target.value)
 }
+
+
+
+/**Test Button */
+var test = document.createElement('input')
+test.value = 'test';
+test.type = "button";
+test.class = 'waves-effect waves-light btn-large';
+test.id = 't';
+questionCont.appendChild(test)
+test.addEventListener('click', storeAnswer);
+
 
 
 /*API Configuration - Gets a random activity from /*    
