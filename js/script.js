@@ -9,7 +9,11 @@ var questions =
 
         {
             question: "What is your favorite movie genre?",
+
             choices: [{ text: "Action", param: "28" }, { text: "Adventure", param: "12" }, { text: "Animation", param: "16" }, { text: "Comedy", param: "35" }, { text: "Crime", param: "80" }, { text: "Documentary", param: "99" }, { text: "Drama", param: "18" }, { text: "Family", param: "10751" }, { text: "Fantasy", param: "14" }, { text: "History", param: "36" }, { text: "Horror", param: "27" }, { text: "Music", param: "10402" }, { text: "Mystery", param: "9648" }, { text: "Romance", param: "10749" }, { text: "Science Fiction", param: '878' }, { text: "Thriller", param: "53" }, { text: "TV Movie", param: "10770" }, { text: "War", param: "10752" }, { text: "Western", param: "37" }],
+
+            choices: ["Action", "Adventure", "Animation", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Mystery", "Romance", "Science Fiction", "Thriller", "TV Movie", "War", "Western"],
+
 
         },
         {
@@ -17,6 +21,7 @@ var questions =
             choices: ["Action", "Adventure", "Animation", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Mystery", "Romance", "Science Fiction", "Thriller", "TV Movie", "War", "Western"],
 
         }
+
 
 
     ];
@@ -92,8 +97,22 @@ var getMovieData = function fetchMovieData(mLength, mGenre, mAge) {
 
             return console.log(movieRes);
             //,console.log(data.results[0].backdrop_path);
+
+    ]
+
+/* API Configuration - Gets movie data and stores it in a function */
+var getMovieData = function fetchMovieData(mLength, mGenre, mAge) {
+    fetch('https://api.themoviedb.org/3/discover/movie?api_key=d68384526c8f6fabc89f85ba5e6c3f5a&language=en-USZ&genre=drama')
+        .then((response) => { return response.json() })
+        .then((data) => {
+            top3Movies = data.results.slice(0, 3);
+            for (var m in top3Movies) {
+                return console.log(top3Movies[m]), console.log(top3Movies[m].backdrop_path);
+            }
+
         });
 }
+
 
 
 //test api call
@@ -102,3 +121,6 @@ var getMovieData = function fetchMovieData(mLength, mGenre, mAge) {
 //questionObj(0);
 //showQuestion();
 questionObj(0);
+
+//console.log(movieData);
+getMovieData();
