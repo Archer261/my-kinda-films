@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 
@@ -34,7 +35,18 @@
             </div>
             <a href="savedresults.html"><button class="saved-button deep-purple-text lighten-5">Saved MyKinda Movies</button></a>
 
-            <div class="questionaire-div"></div>
+
+            <!--Start of Questionair-->
+            <div id="questionaire-div" class="container intro-div deep-purple-text lighten 5 col s12 m2">
+                <div id="question" class="container"></div>
+                <div id="answer" class="container col s12 m2"></div>
+                <button id="strtBtn" class="waves-effect waves-light amber deep-purple-text btn-large pulse">Start!</button>
+                <button id="prev" class="waves-effect waves-light amber deep-purple-text btn-large">Prev</button>
+                <button id="next" class="waves-effect waves-light amber deep-purple-text btn-large">Next</button>
+            </div>
+            <!--End Questionaire-->
+
+
             <div class="results-div">
                 <div class="row">
                     <div class="movie-recommendation col l4 m12">

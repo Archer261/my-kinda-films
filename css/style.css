@@ -49,3 +49,11 @@ p {
 .home-button{
     margin-top: 35px;
 }
+
+#strtBtn, #prev, #next {
+    margin: 50px !important ;    
+}
+
+input[id^="choice"] {
+    margin: 10px !important
+}
