@@ -40,6 +40,11 @@ const answerCont = $('#answer').hide();
 const questCont = $('#question').hide();
 const questionDiv = document.getElementById('question');
 const answerDiv = document.getElementById('answer');
+const mposter = $('.movie-title-div');
+const resultsDiv = $(".results-div");
+const mTitle = $('#mTitle');
+const resultsRow = $('#resultsRow');
+
 prevBtn.on('click', function () { prevQ() });
 nextBtn.on('click', function () { nextQ() });
 
@@ -144,10 +149,18 @@ function showQuestion(index) {
 
 /* Function for Next Button */
 function nextQ() {
-    clearQuestions();
-    checkQ(1);
     console.log(index);
-    showQuestion(index);
+    checkQ(1);
+    if (index !== questions.length) {
+        clearQuestions();
+        console.log(index);
+        showQuestion(index);
+    } else if (index === questions.length) {
+
+        nextBtn.hide();
+        finBtn.show();
+        console.log('stopped')
+    }
     //  }
 }
 
@@ -170,7 +183,6 @@ function clearQuestions() {
 
 /* API Configuration - Gets movie data and stores it in a function */
 function fetchMovieData(mLength, mGenre, mAge) {
-    clearQuestions()
     fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=d68384526c8f6fabc89f85ba5e6c3f5a&language=en-USZ&with_genres=${mGenre}&${mLength}=90&sort_by=vote_average.desc&vote_count.gte=10`)
         .then((response) => { return response.json() })
         .then((data) => {
@@ -178,12 +190,22 @@ function fetchMovieData(mLength, mGenre, mAge) {
             /**Stores top 3 results in variable */
 
             movieRes = data.results.slice(0, 3);
-
+            mNo = 0;
             for (m in movieRes) {
-                var poster = $(`<img class="poster" src="${console.log(getMoviePoster(movieRes[m].poster_path))}">`);
-                qCont.append(poster);
+
+
+                var mvContainer = $('<div class="movie-recommendation col l4 m12"><div>');
+                var mvposter = $(`<img class="poster" src="${console.log(getMoviePoster(movieRes[m].poster_path))}">`);
+                var mvtitle = $(`<h2 class="movie-title-h2 amber-text text-accent-4">${movieRes[m].title}</h2>`)
+                mposter.append(mvposter);
+                mvContainer.append(mvtitle);
+                resultsRow.append(mvContainer);
+
+                localStorage.setItem(`m${mNo}-title`, movieRes[m].title);
+                localStorage.setItem(`m${mNo}-poster`, getMoviePoster(movieRes[m].poster_path));
+                mNo++
             }
-            //return
+
         })
 }
 
@@ -209,5 +231,8 @@ strtBtn.on('click', function () { showQuestion(index) });
 /**Function for finish button that calls the Movie API */
 finBtn.on('click', function () { finishQ() })
 function finishQ() {
+    clearQuestions();
+    finBtn.hide();
+    qCont.hide();
     fetchMovieData(localStorage.getItem("movieLen"), localStorage.getItem("movieGen"));
 }
