@@ -19,7 +19,7 @@ var questions =
         {
             question: "What is your most disliked movie genre?",
 
-            choices: [{ text: "Action", param: "28", id: 'moviegen' }, { text: "Adventure", param: "12", id: 'moviegen' }, { text: "Animation", param: "16", id: 'moviegen' }, { text: "Comedy", param: "35", id: 'moviegen' }, { text: "Crime", param: "80", id: 'moviegen' }, { text: "Documentary", param: "99", id: 'moviegen' }, { text: "Drama", param: "18", id: 'moviegen' }, { text: "Family", param: "10751", id: 'moviegen' }, { text: "Fantasy", param: "14", id: 'moviegen' }, { text: "History", param: "36", id: 'moviegen' }, { text: "Horror", param: "27", id: 'moviegen' }, { text: "Music", param: "10402", id: 'moviegen' }, { text: "Mystery", param: "9648", id: 'moviegen' }, { text: "Romance", param: "10749", id: 'moviegen' }, { text: "Science Fiction", param: '878', id: 'moviegen' }, { text: "Thriller", param: "53", id: 'moviegen' }, { text: "TV Movie", param: "10770", id: 'moviegen' }, { text: "War", param: "10752", id: 'moviegen' }, { text: "Western", param: "37", id: 'moviegen' }]
+            choices: [{ text: "Action", param: "28", id: 'moviewoGen' }, { text: "Adventure", param: "12", id: 'moviewoGen' }, { text: "Animation", param: "16", id: 'moviewoGen' }, { text: "Comedy", param: "35", id: 'moviewoGen' }, { text: "Crime", param: "80", id: 'moviewoGen' }, { text: "Documentary", param: "99", id: 'moviewoGen' }, { text: "Drama", param: "18", id: 'moviewoGen' }, { text: "Family", param: "10751", id: 'moviewoGen' }, { text: "Fantasy", param: "14", id: 'moviewoGen' }, { text: "History", param: "36", id: 'moviewoGen' }, { text: "Horror", param: "27", id: 'moviewoGen' }, { text: "Music", param: "10402", id: 'moviewoGen' }, { text: "Mystery", param: "9648", id: 'moviewoGen' }, { text: "Romance", param: "10749", id: 'moviewoGen' }, { text: "Science Fiction", param: '878', id: 'moviewoGen' }, { text: "Thriller", param: "53", id: 'moviewoGen' }, { text: "TV Movie", param: "10770", id: 'moviewoGen' }, { text: "War", param: "10752", id: 'moviewoGen' }, { text: "Western", param: "37", id: 'moviewoGen' }]
 
         }
 
@@ -44,7 +44,9 @@ const answerDiv = document.getElementById('answer');
 const resultsDiv = $(".results-div");
 //const mTitle = $('#mTitle');
 const resultsRow = $('#resultsRow');
+const boredBtn = $('#bored-button');
 
+boredBtn.on('click', getRanAct);
 prevBtn.on('click', function () { prevQ() });
 nextBtn.on('click', function () { nextQ() });
 
@@ -229,10 +231,19 @@ function getMoviePoster(jpg) {
 
 
 /*Bored API Configuration - Gets a random activity from */
-var getRanAct = function () {
+function getRanAct() {
+    event.stopPropagation()
+    clearQuestions()
     fetch('https://www.boredapi.com/api/activity/')
         .then(function (response) { return response.json(); })
-        .then(function (data) { return console.log(data.activity) });
+        .then(function (data) {
+            var act = data.activity;
+            questCont.append(`<h2>${act}</h2>`);
+            console.log(data.activity);
+            questCont.show();
+            qCont.show();
+            return console.log(data.activity)
+        });
 }
 
 /**Create event listner for start button. Calls function that shows first question */
@@ -246,5 +257,5 @@ function finishQ() {
     clearQuestions();
     finBtn.hide();
     qCont.hide();
-    fetchMovieData(localStorage.getItem("movieLen"), localStorage.getItem("movieGen"));
+    fetchMovieData(localStorage.getItem("movieLen"), localStorage.getItem("movieGen"), localStorage.getItem("moviewoGen"));
 }
