@@ -17,7 +17,7 @@ var questions =
 
         },
         {
-            question: "What is your favorite movie genre?",
+            question: "What is your most disliked movie genre?",
 
             choices: [{ text: "Action", param: "28", id: 'moviegen' }, { text: "Adventure", param: "12", id: 'moviegen' }, { text: "Animation", param: "16", id: 'moviegen' }, { text: "Comedy", param: "35", id: 'moviegen' }, { text: "Crime", param: "80", id: 'moviegen' }, { text: "Documentary", param: "99", id: 'moviegen' }, { text: "Drama", param: "18", id: 'moviegen' }, { text: "Family", param: "10751", id: 'moviegen' }, { text: "Fantasy", param: "14", id: 'moviegen' }, { text: "History", param: "36", id: 'moviegen' }, { text: "Horror", param: "27", id: 'moviegen' }, { text: "Music", param: "10402", id: 'moviegen' }, { text: "Mystery", param: "9648", id: 'moviegen' }, { text: "Romance", param: "10749", id: 'moviegen' }, { text: "Science Fiction", param: '878', id: 'moviegen' }, { text: "Thriller", param: "53", id: 'moviegen' }, { text: "TV Movie", param: "10770", id: 'moviegen' }, { text: "War", param: "10752", id: 'moviegen' }, { text: "Western", param: "37", id: 'moviegen' }]
 
@@ -40,9 +40,9 @@ const answerCont = $('#answer').hide();
 const questCont = $('#question').hide();
 const questionDiv = document.getElementById('question');
 const answerDiv = document.getElementById('answer');
-const mposter = $('.movie-title-div');
+
 const resultsDiv = $(".results-div");
-const mTitle = $('#mTitle');
+//const mTitle = $('#mTitle');
 const resultsRow = $('#resultsRow');
 
 prevBtn.on('click', function () { prevQ() });
@@ -182,8 +182,8 @@ function clearQuestions() {
 
 
 /* API Configuration - Gets movie data and stores it in a function */
-function fetchMovieData(mLength, mGenre, mAge) {
-    fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=d68384526c8f6fabc89f85ba5e6c3f5a&language=en-USZ&with_genres=${mGenre}&${mLength}=90&sort_by=vote_average.desc&vote_count.gte=10`)
+function fetchMovieData(mLength, mGenre, mwoGenre) {
+    fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=d68384526c8f6fabc89f85ba5e6c3f5a&language=en-USZ&with_genres=${mGenre}&without_genres=${mwoGenre}&${mLength}=90`)
         .then((response) => { return response.json() })
         .then((data) => {
 
@@ -195,11 +195,23 @@ function fetchMovieData(mLength, mGenre, mAge) {
 
 
                 var mvContainer = $('<div class="movie-recommendation col l4 m12"><div>');
-                var mvposter = $(`<img class="poster" src="${console.log(getMoviePoster(movieRes[m].poster_path))}">`);
+                if (movieRes[m].poster_path === null) {
+                    var mvposter = $(`<img class="poster" src="./assets/mv.png">`);
+                }
+                else {
+
+                    var mvposter = $(`<img class="poster" src=${getMoviePoster(movieRes[m].poster_path)}>`);
+
+                    console.log(getMoviePoster(movieRes[m].poster_path));
+                }
+
                 var mvtitle = $(`<h2 class="movie-title-h2 amber-text text-accent-4">${movieRes[m].title}</h2>`)
-                mposter.append(mvposter);
-                mvContainer.append(mvtitle);
+                var mposter = $('<div class="movie-title-div"></div>');
                 resultsRow.append(mvContainer);
+                mvContainer.append(mvtitle);
+                mvContainer.append(mposter);
+                mposter.append(mvposter);
+
 
                 localStorage.setItem(`m${mNo}-title`, movieRes[m].title);
                 localStorage.setItem(`m${mNo}-poster`, getMoviePoster(movieRes[m].poster_path));
@@ -212,7 +224,7 @@ function fetchMovieData(mLength, mGenre, mAge) {
 
 /**Formats image path for the films poster */
 function getMoviePoster(jpg) {
-    return "https://image.tmdb.org/t/p/w500/" + jpg;
+    return "https://image.tmdb.org/t/p/w500" + jpg;
 }
 
 
