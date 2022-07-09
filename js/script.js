@@ -44,7 +44,9 @@ const answerDiv = document.getElementById('answer');
 const resultsDiv = $(".results-div");
 //const mTitle = $('#mTitle');
 const resultsRow = $('#resultsRow');
+const boredBtn = $('#bored-button');
 
+boredBtn.on('click', getRanAct);
 prevBtn.on('click', function () { prevQ() });
 nextBtn.on('click', function () { nextQ() });
 
@@ -229,10 +231,19 @@ function getMoviePoster(jpg) {
 
 
 /*Bored API Configuration - Gets a random activity from */
-var getRanAct = function () {
+function getRanAct() {
+    event.stopPropagation()
+    clearQuestions()
     fetch('https://www.boredapi.com/api/activity/')
         .then(function (response) { return response.json(); })
-        .then(function (data) { return console.log(data.activity) });
+        .then(function (data) {
+            var act = data.activity;
+            questCont.append(`<h2>${act}</h2>`);
+            console.log(data.activity);
+            questCont.show();
+            qCont.show();
+            return console.log(data.activity)
+        });
 }
 
 /**Create event listner for start button. Calls function that shows first question */
