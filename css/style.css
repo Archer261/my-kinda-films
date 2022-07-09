@@ -59,6 +59,14 @@ p {
     left: 45px;
 }
 
+#strtBtn, #prev, #next {
+    margin: 50px !important ;    
+}
+
+#answer button {
+    margin: 10px !important;
+}
+
 @media screen and (max-width: 1200px) {
     .saved-button, .home-button {
         position: inherit;
