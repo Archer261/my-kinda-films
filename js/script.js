@@ -3,22 +3,23 @@ var questions =
     [
         {
             question: "What is your ideal movie length?",
-            choices: [{ text: "Less than 90 minutes.", param: "with_runtime.lte" }, { text: "More than 90 minutes.", param: "with_runtime.gte" }],
+            choices: [{ text: "Less than 90 minutes.", param: "with_runtime.lte", id: 'movieLen' }, { text: "More than 90 minutes.", param: "with_runtime.gte", id: 'movieLen' }],
 
         },
 
         {
             question: "What is your favorite movie genre?",
 
-            choices: [{ text: "Action", param: "28" }, { text: "Adventure", param: "12" }, { text: "Animation", param: "16" }, { text: "Comedy", param: "35" }, { text: "Crime", param: "80" }, { text: "Documentary", param: "99" }, { text: "Drama", param: "18" }, { text: "Family", param: "10751" }, { text: "Fantasy", param: "14" }, { text: "History", param: "36" }, { text: "Horror", param: "27" }, { text: "Music", param: "10402" }, { text: "Mystery", param: "9648" }, { text: "Romance", param: "10749" }, { text: "Science Fiction", param: '878' }, { text: "Thriller", param: "53" }, { text: "TV Movie", param: "10770" }, { text: "War", param: "10752" }, { text: "Western", param: "37" }],
+            choices: [{ text: "Action", param: "28", id: 'moviegen' }, { text: "Adventure", param: "12", id: 'moviegen' }, { text: "Animation", param: "16", id: 'moviegen' }, { text: "Comedy", param: "35", id: 'moviegen' }, { text: "Crime", param: "80", id: 'moviegen' }, { text: "Documentary", param: "99", id: 'moviegen' }, { text: "Drama", param: "18", id: 'moviegen' }, { text: "Family", param: "10751", id: 'moviegen' }, { text: "Fantasy", param: "14", id: 'moviegen' }, { text: "History", param: "36", id: 'moviegen' }, { text: "Horror", param: "27", id: 'moviegen' }, { text: "Music", param: "10402", id: 'moviegen' }, { text: "Mystery", param: "9648", id: 'moviegen' }, { text: "Romance", param: "10749", id: 'moviegen' }, { text: "Science Fiction", param: '878', id: 'moviegen' }, { text: "Thriller", param: "53", id: 'moviegen' }, { text: "TV Movie", param: "10770", id: 'moviegen' }, { text: "War", param: "10752", id: 'moviegen' }, { text: "Western", param: "37", id: 'moviegen' }],
 
 
 
 
         },
         {
-            question: "What is your favorite movie genre?"//,
-            //choices: [{text: , param: },
+            question: "What is your favorite movie genre?",
+
+            choices: [{ text: "Action", param: "28", id: 'moviegen' }, { text: "Adventure", param: "12", id: 'moviegen' }, { text: "Animation", param: "16", id: 'moviegen' }, { text: "Comedy", param: "35", id: 'moviegen' }, { text: "Crime", param: "80", id: 'moviegen' }, { text: "Documentary", param: "99", id: 'moviegen' }, { text: "Drama", param: "18", id: 'moviegen' }, { text: "Family", param: "10751", id: 'moviegen' }, { text: "Fantasy", param: "14", id: 'moviegen' }, { text: "History", param: "36", id: 'moviegen' }, { text: "Horror", param: "27", id: 'moviegen' }, { text: "Music", param: "10402", id: 'moviegen' }, { text: "Mystery", param: "9648", id: 'moviegen' }, { text: "Romance", param: "10749", id: 'moviegen' }, { text: "Science Fiction", param: '878', id: 'moviegen' }, { text: "Thriller", param: "53", id: 'moviegen' }, { text: "TV Movie", param: "10770", id: 'moviegen' }, { text: "War", param: "10752", id: 'moviegen' }, { text: "Western", param: "37", id: 'moviegen' }]
 
         }
 
@@ -26,22 +27,60 @@ var questions =
 
     ];
 
-
 /*Container variables*/
 
 const strtBtn = $('#strtBtn');
 const prevBtn = $('#prev').hide();
 const nextBtn = $('#next').hide();
+const finBtn = $('#finBtn').hide();
+
 const questionCont = document.getElementById('questionaire-div');
-const qCont = $('questionaire-div');
+const qCont = $('#questionaire-div').hide();
+const answerCont = $('#answer').hide();
+const questCont = $('#question').hide();
 const questionDiv = document.getElementById('question');
 const answerDiv = document.getElementById('answer');
+prevBtn.on('click', function () { prevQ() });
+nextBtn.on('click', function () { nextQ() });
 
 
+var index = 0
+
+
+/**Function checks what each button is passing through and updates with question the user is on */
+function checkQ(i) {
+    if (i === null || i === undefined || i === 0) {
+        /**Always hide the previous button if you're on the first question */
+        prevBtn.hide();
+        index = 0;
+        console.log(index);
+    } else if (i === -1) {
+        index--;
+        console.log(index);
+    }
+    /**Always hide the next button if you're on the last question */
+
+    else if (i === questions.length) {
+        nextBtn.hide();
+        finBtn.show();
+        console.log(index);
+    }
+
+    else if (i > 0 && i < questions.length) {
+        finBtn.hide();
+        nextBtn.show();
+        prevBtn.show();
+        index++
+        console.log(index);
+    }
+
+}
+
+/**Stores the value in local storage */
 function storeAnswer(val) {
     event.preventDefault();
     localStorage.setItem(val.target.id, val.target.value)
-    //console.log(val.target.value)
+
 }
 
 
@@ -49,10 +88,9 @@ function storeAnswer(val) {
 /**Generates Button for answers */
 function genBtn(test) {
     event.stopPropagation()
-    qCont.empty();
     var choiceBtn = document.createElement('input');
     choiceBtn.className = 'waves-effect waves-light btn-large';
-    choiceBtn.id = 'choice' + '-' + choiceBtn.param;
+    choiceBtn.id = test.id;
     choiceBtn.innerHTML = test.text;
     choiceBtn.value = test.text;
     choiceBtn.type = "button";
@@ -65,77 +103,94 @@ function genBtn(test) {
 
 /*Get Question from questions object */
 function questionObj(qIndex) {
+    console.log(qIndex);
     event.preventDefault()
+    event.stopPropagation();
     createQuestion = document.createElement('h2');
     var q = questions[qIndex].question;
-
     createQuestion.innerText = q;
     questionDiv.appendChild(createQuestion);
     var a = questions[qIndex].choices.forEach(answer => {
         genBtn(answer);
     });
-    //return q, a;
+
 }
 
 /*Generate Questions*/
-function showQuestion() {
-    let qIndex = 0;
-    prevBtn.show();
-    nextBtn.show();
+function showQuestion(index) {
+    event.stopPropagation();
+    //console.log(index)
+    qCont.show();
+    answerCont.show()
+    questCont.show();
     strtBtn.hide();
-    //$(this).show();
+    if (index === questions.length) {
+        finBtn.show();
+        nextBtn.hide();
+        prevBtn.show();
+    } else if (index < questions.length && index > 0) {
+        prevBtn.show();
+        finBtn.hide();
+        nextBtn.show();
 
-    let qPrompt = questionObj(qIndex);
-    prevBtn.on('click', function () { prevQ(qIndex) });
-    nextBtn.on('click', function () { nextQ(qIndex) });
-    console.log(q)
+    } else if (index === 0) {
+        nextBtn.show();
+        prevBtn.hide();
+        finBtn.hide();
+    }
+    questionObj(index);
+
 }
 
 /* Function for Next Button */
-function nextQ(indx) {
-    if (indx < questions.length) {
-        indx++;
-        qCont.empty();
-        questionObj(indx);
-    }
+function nextQ() {
+    clearQuestions();
+    checkQ(1);
+    console.log(index);
+    showQuestion(index);
+    //  }
 }
 
 /* Function for Prev Button */
-function prevQ(indx) {
-    if (indx < 0) {
-        indx--;
-        qCont.empty();
-        questionObj(indx);
-    }
+function prevQ() {
+    clearQuestions();
+    checkQ(-1);
+    showQuestion(index);
+
+}
+
+/**Clears the question an answer div children to allow question and answers to populate again */
+function clearQuestions() {
+    prevBtn.hide();
+    nextBtn.hide();
+    answerCont.children().remove();
+    questCont.children().remove();
 }
 
 
 /* API Configuration - Gets movie data and stores it in a function */
-/*var getMovieData = function fetchMovieData(mLength, mGenre, mAge) {
+function fetchMovieData(mLength, mGenre, mAge) {
+    clearQuestions()
     fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=d68384526c8f6fabc89f85ba5e6c3f5a&language=en-USZ&with_genres=${mGenre}&${mLength}=90&sort_by=vote_average.desc&vote_count.gte=10`)
         .then((response) => { return response.json() })
         .then((data) => {
 
             /**Stores top 3 results in variable */
 
-/*movieRes = data.results.slice(0, 3);
+            movieRes = data.results.slice(0, 3);
 
-return console.log(movieRes);
-//,console.log(data.results[0].backdrop_path);
-
-]*/
-
-/* API Configuration - Gets movie data and stores it in a function */
-var getMovieData = function fetchMovieData(mLength, mGenre, mAge) {
-    fetch('https://api.themoviedb.org/3/discover/movie?api_key=d68384526c8f6fabc89f85ba5e6c3f5a&language=en-USZ&genre=drama')
-        .then((response) => { return response.json() })
-        .then((data) => {
-            top3Movies = data.results.slice(0, 3);
-            for (var m in top3Movies) {
-                return console.log(top3Movies[m]), console.log(top3Movies[m].backdrop_path);
+            for (m in movieRes) {
+                var poster = $(`<img class="poster" src="${console.log(getMoviePoster(movieRes[m].poster_path))}">`);
+                qCont.append(poster);
             }
+            //return
+        })
+}
 
-        });
+
+/**Formats image path for the films poster */
+function getMoviePoster(jpg) {
+    return "https://image.tmdb.org/t/p/w500/" + jpg;
 }
 
 
@@ -146,20 +201,13 @@ var getRanAct = function () {
         .then(function (data) { return console.log(data.activity) });
 }
 
+/**Create event listner for start button. Calls function that shows first question */
+strtBtn.on('click', function () { showQuestion(index) });
 
 
-//test api call
-//getMovieData("with_runtime.lte", [14, 12, 35]);
 
-//questionObj(0);
-//showQuestion();
-//questionObj(0);
-
-//console.log(movieData);
-//getMovieData();
-
-//getRanAct();
-
-//genBtn();
-strtBtn.on('click', showQuestion);
-console.log(questions.length);
+/**Function for finish button that calls the Movie API */
+finBtn.on('click', function () { finishQ() })
+function finishQ() {
+    fetchMovieData(localStorage.getItem("movieLen"), localStorage.getItem("movieGen"));
+}

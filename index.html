@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>MyKinda Films</title>
+    <title>MyKinda Movie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,11 +20,11 @@
 
 <body>
     <header>
-        <h1 class="header amber-text lighten-5">🎬🎥🍿 MyKinda Movie 🍿🎥🎬</h1>
+        <h1 class="header amber-text text-accent-4">🎬🎥🍿 MyKinda Movie 🍿🎥🎬</h1>
     </header>
     <main>
         <div class="container">
-            <div class="intro-div deep-purple-text lighten 5">
+            <div class="intro-div deep-purple-text text-lighten-4">
                 <div>
                     <h2>What exactly is MyKinda Movie?</h2>
                 </div>
@@ -33,40 +33,30 @@
                 <p>And if you're not up for a movie by the time you've viewed your recommendations, don't worry!
                     MyKinda Movie will scour the wild depths of the internet to keep you entertained.</p>
             </div>
-            <a href="savedresults.html"><button class="saved-button deep-purple-text lighten-5">Saved MyKinda Movies</button></a>
-
-
+            <a href="savedresults.html"><button class="saved-button deep-purple-text text-lighten-4 col md12 sm12">Saved
+                    MyKinda Movies</button></a>
+            <button id="strtBtn" class="custom-button deep-purple-text text-lighten-4">Find MyKinda Movie!</button>
             <!--Start of Questionair-->
             <div id="questionaire-div" class="container intro-div deep-purple-text lighten 5 col s12 m2">
                 <div id="question" class="container"></div>
                 <div id="answer" class="container col s12 m2"></div>
-                <button id="strtBtn" class="waves-effect waves-light amber deep-purple-text btn-large pulse">Start!</button>
+                <!-- <button id="strtBtn" class="waves-effect waves-light amber deep-purple-text btn-large pulse">Start!</button>-->
                 <button id="prev" class="waves-effect waves-light amber deep-purple-text btn-large">Prev</button>
                 <button id="next" class="waves-effect waves-light amber deep-purple-text btn-large">Next</button>
+                <button id="finBtn" class="waves-effect waves-light amber deep-purple-text btn-large pulse">Finish!</button>
             </div>
             <!--End Questionaire-->
-
-
             <div class="results-div">
                 <div class="row">
                     <div class="movie-recommendation col l4 m12">
-                        <h2 class="movie-title-h2 deep-purple-text lighten 5"></h2>
+                        <h2 class="movie-title-h2 amber-text text-accent-4"></h2>
                         <div class="movie-title-div">
-                            <h3 class="movie-title amber-text lighten-5"></h3>
-                            <h3 class="movie-title amber-text lighten-5"></h3>
-                            <h3 class="movie-title amber-text lighten-5"></h3>
+                            <h3 class="movie-title amber-text text-accent-4"></h3>
+                            <h3 class="movie-title amber-text text-accent-4"></h3>
+                            <h3 class="movie-title amber-text text-accent-4"></h3>
                         </div>
                     </div>
-                    <div class="video-player-div col l4 m12">
-                        <h3 class="video-title"></h3>
-                    </div>
-                    <div class="still-bored-div col l4 m12">
-                        <h3 class="still-bored-h2"></h3>
-                        <div class="still-bored-content"></div>
-                    </div>
                 </div>
-            </div>
-        </div>
     </main>
 
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
