@@ -233,6 +233,7 @@ function getMoviePoster(jpg) {
 /*Bored API Configuration - Gets a random activity from */
 function getRanAct() {
     event.stopPropagation()
+    strtBtn.show();
     clearQuestions()
     fetch('https://www.boredapi.com/api/activity/')
         .then(function (response) { return response.json(); })
@@ -247,7 +248,10 @@ function getRanAct() {
 }
 
 /**Create event listner for start button. Calls function that shows first question */
-strtBtn.on('click', function () { showQuestion(index) });
+strtBtn.on('click', function () {
+    clearQuestions();
+    showQuestion(index)
+});
 
 
 
