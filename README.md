@@ -65,7 +65,7 @@ If the user has decided they’d rather try something else instead, they can vie
 
 [Joseph Archer](https://github.com/Archer261): Javascript 
 
-[Taha Chaudry](https://github.com/tahachaudhry): 
+[Taha Chaudry](https://github.com/tahachaudhry): Information Architecture
 
 [April Herriotte](https://github.com/aherriotte): User Experience
 
