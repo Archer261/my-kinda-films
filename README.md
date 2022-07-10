@@ -29,23 +29,23 @@ If the user has decided they’d rather try something else instead, they can vie
 
 ## User Story
 
-```
+
 **AS A** bored film lover who wants to try something new
 
 **I WANT** to be entertained with movies chosen from my preferences or be given a new activity to experience
 
 **SO THAT** I can watch a movie that I would likely be interested in and not be bombarded with fluff on streaming services and keep myself intellectually occupied
-```
+
 
 ## Acceptance Criteria
 
-```
+
 **GIVEN** a user is interested in either finding a movie to view or an activity to try
 
 **WHEN** the user has selected their film preferences 
 
 **THEN** the user is presented with three movies fitting their preferences and along with an activity to try out 
-```
+
 
 ## Technologies Used
 
