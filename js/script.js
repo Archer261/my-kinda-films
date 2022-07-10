@@ -17,7 +17,7 @@ var questions =
 
         },
         {
-            question: "What is your most disliked movie genre?",
+            question: "What is your least favorite movie genre?",
 
             choices: [{ text: "Action", param: "28", id: 'moviewoGen' }, { text: "Adventure", param: "12", id: 'moviewoGen' }, { text: "Animation", param: "16", id: 'moviewoGen' }, { text: "Comedy", param: "35", id: 'moviewoGen' }, { text: "Crime", param: "80", id: 'moviewoGen' }, { text: "Documentary", param: "99", id: 'moviewoGen' }, { text: "Drama", param: "18", id: 'moviewoGen' }, { text: "Family", param: "10751", id: 'moviewoGen' }, { text: "Fantasy", param: "14", id: 'moviewoGen' }, { text: "History", param: "36", id: 'moviewoGen' }, { text: "Horror", param: "27", id: 'moviewoGen' }, { text: "Music", param: "10402", id: 'moviewoGen' }, { text: "Mystery", param: "9648", id: 'moviewoGen' }, { text: "Romance", param: "10749", id: 'moviewoGen' }, { text: "Science Fiction", param: '878', id: 'moviewoGen' }, { text: "Thriller", param: "53", id: 'moviewoGen' }, { text: "TV Movie", param: "10770", id: 'moviewoGen' }, { text: "War", param: "10752", id: 'moviewoGen' }, { text: "Western", param: "37", id: 'moviewoGen' }]
 
@@ -27,8 +27,7 @@ var questions =
 
     ];
 
-/*Container variables*/
-
+/*HTML Element and Container variables*/
 const strtBtn = $('#strtBtn');
 const prevBtn = $('#prev').hide();
 const nextBtn = $('#next').hide();
@@ -50,7 +49,7 @@ boredBtn.on('click', getRanAct);
 prevBtn.on('click', function () { prevQ() });
 nextBtn.on('click', function () { nextQ() });
 
-
+/**Set initial index for questions object*/
 var index = 0
 
 
@@ -60,17 +59,16 @@ function checkQ(i) {
         /**Always hide the previous button if you're on the first question */
         prevBtn.hide();
         index = 0;
-        console.log(index);
+
     } else if (i === -1) {
         index--;
-        console.log(index);
+
     }
     /**Always hide the next button if you're on the last question */
 
     else if (i === questions.length) {
         nextBtn.hide();
         finBtn.show();
-        console.log(index);
     }
 
     else if (i > 0 && i < questions.length) {
@@ -78,7 +76,6 @@ function checkQ(i) {
         nextBtn.show();
         prevBtn.show();
         index++
-        console.log(index);
     }
 
 }
@@ -87,7 +84,6 @@ function checkQ(i) {
 function storeAnswer(val) {
     event.preventDefault();
     localStorage.setItem(val.target.id, val.target.value);
-
 }
 
 
@@ -109,7 +105,6 @@ function genBtn(test) {
 
 /*Get Question from questions object */
 function questionObj(qIndex) {
-    console.log(qIndex);
     event.preventDefault()
     event.stopPropagation();
     createQuestion = document.createElement('h2');
@@ -130,7 +125,7 @@ function showQuestion(index) {
     answerCont.show()
     questCont.show();
     strtBtn.hide();
-    console.log('current no: ' + index);
+    //    console.log('current no: ' + index);
     if (index === questions.length - 1) {
         finBtn.show();
         nextBtn.hide();
@@ -151,17 +146,15 @@ function showQuestion(index) {
 
 /* Function for Next Button */
 function nextQ() {
-    console.log(index);
     checkQ(1);
     if (index !== questions.length) {
         clearQuestions();
-        console.log(index);
         showQuestion(index);
     } else if (index === questions.length) {
 
         nextBtn.hide();
         finBtn.show();
-        console.log('stopped')
+        //        console.log('stopped')
     }
 
 }
@@ -193,7 +186,10 @@ function clearResults() {
 /* API Configuration - Gets movie data and stores it in a function */
 function fetchMovieData(mLength, mGenre, mwoGenre) {
     fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=d68384526c8f6fabc89f85ba5e6c3f5a&language=en-USZ&with_genres=${mGenre}&without_genres=${mwoGenre}&${mLength}=90`)
-        .then((response) => { return response.json() })
+        .then((response) => {
+            if (response.ok) { return response.json() }
+            else { throw new Error("Failed to obtain movies.") }
+        })
         .then((data) => {
 
             /**Stores top 3 results in variable */
@@ -215,7 +211,7 @@ function fetchMovieData(mLength, mGenre, mwoGenre) {
                 }
 
                 var mvtitle = $(`<h2 class="movie-title-h2 amber-text text-accent-4">${movieRes[m].title}</h2>`)
-                var mposter = $('<div class="movie-title-div"></div>');
+                var mposter = $('<div class="movie-title-div z-depth-5"></div>');
                 resultsRow.append(mvContainer);
                 mvContainer.append(mvtitle);
                 mvContainer.append(mposter);
@@ -248,10 +244,10 @@ function getRanAct() {
         .then(function (data) {
             var act = data.activity;
             questCont.append(`<h2>${act}</h2>`);
-            console.log(data.activity);
+            //console.log(data.activity);
             questCont.show();
             qCont.show();
-            return console.log(data.activity)
+            //return console.log(data.activity)
         });
 }
 
@@ -259,7 +255,6 @@ function getRanAct() {
 strtBtn.on('click', function () {
     clearResults();
     clearQuestions();
-
     showQuestion(index)
 });
 
@@ -273,5 +268,4 @@ function finishQ() {
     finBtn.hide();
     qCont.hide();
     fetchMovieData(localStorage.getItem("movieLen"), localStorage.getItem("movieGen"), localStorage.getItem("moviewoGen"));
-    $('.poster').fadeIn(3000);
 }
