@@ -1,7 +1,7 @@
 # MyKinda Movies
 
 ## Project 1: Movie Recommendations
-(link to deployed application)
+[MyKinda Movie](https://archer261.github.io/my-kinda-films/) Application Link
 
 ## Table of Contents 
 - [Project Concept](#project-concept)
@@ -30,55 +30,63 @@ If the user has decided they’d rather try something else instead, they can vie
 ## User Story
 
 ```
-<strong>AS A</strong> bored film lover who wants to try something new
+**AS A** bored film lover who wants to try something new
 
-<strong>I WANT</strong> to be entertained with movies chosen from my preferences or be given a new activity to experience
+**I WANT** to be entertained with movies chosen from my preferences or be given a new activity to experience
 
-<strong>SO THAT</strong> I can watch a movie that I would likely be interested in and not be bombarded with fluff on streaming services and keep myself intellectually occupied
+**SO THAT** I can watch a movie that I would likely be interested in and not be bombarded with fluff on streaming services and keep myself intellectually occupied
 ```
 
 ## Acceptance Criteria
 
 ```
-<strong>GIVEN</strong> a user is interested in either finding a movie to view or an activity to try
+**GIVEN** a user is interested in either finding a movie to view or an activity to try
 
-<strong>WHEN</strong> the user has selected their film preferences 
+**WHEN** the user has selected their film preferences 
 
-<strong>THEN</strong> the user is presented with three movies fitting their preferences and along with an activity to try out 
+**THEN** the user is presented with three movies fitting their preferences and along with an activity to try out 
 ```
 
 ## Technologies Used
 
 -[Google Fonts](https://fonts.google.com/)
+
 -[Materialize CSS](https://materializecss.com/)
+
 -[jQuery](https://jquery.com/)
 
 ## APIs Used
 
 -[The Movie Database API](https://developers.themoviedb.org/3/getting-started/introduction)
+
 -[Bored API](http://www.boredapi.com/)
 
 ## Task Breakdown
 
 [Joseph Archer](https://github.com/Archer261): Javascript 
+
 [Taha Chaudry](https://github.com/tahachaudhry): 
+
 [April Herriotte](https://github.com/aherriotte): User Experience
+
 [Erin Voelker](https://github.com/ekellv): Styling & Wireframe
 
 ## Wireframe
  
 Home Page:
-![MyKinda Movie Home Page Wireframe](Assets\MyKinda Movie Wireframe 1.png)
+![MyKinda Movie Wireframe 1](https://user-images.githubusercontent.com/103372188/178149248-dfb418f9-8bc4-481a-a97f-339a4b084f30.png)
+
 
 Saved MyKinda Movies:
-![MyKinda Movie Save Movies Wireframe](Assets\MyKinda Movie Wireframe 2.png)
+![MyKinda Movie Wireframe 2](https://user-images.githubusercontent.com/103372188/178149258-6fccb4ec-43a8-467b-bc53-ecf5478a107a.png)
 
 
 ## Deployed Application 
 (gif of application)
 
 Home Page:
-![MyKinda Movie Application Image](Assets\mykinda movie screenshot 1.png)
+![mykinda movie screenshot 1](https://user-images.githubusercontent.com/103372188/178149266-d2fef1c9-9d08-4c78-8949-7ed450574036.png)
 
 Saved MyKinda Movies:
-![MyKinda Movie Application Image](Assets\mykinda movie screenshot 2.png)
+![mykinda movie screenshot 2](https://user-images.githubusercontent.com/103372188/178149273-2b85e77a-a537-43a9-80cc-f16066273cea.png)
+
