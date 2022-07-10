@@ -33,6 +33,7 @@ const strtBtn = $('#strtBtn');
 const prevBtn = $('#prev').hide();
 const nextBtn = $('#next').hide();
 const finBtn = $('#finBtn').hide();
+const posterDiv = $('.movie-recommendation');
 
 const questionCont = document.getElementById('questionaire-div');
 const qCont = $('#questionaire-div').hide();
@@ -42,7 +43,6 @@ const questionDiv = document.getElementById('question');
 const answerDiv = document.getElementById('answer');
 
 const resultsDiv = $(".results-div");
-//const mTitle = $('#mTitle');
 const resultsRow = $('#resultsRow');
 const boredBtn = $('#bored-button');
 
@@ -86,7 +86,7 @@ function checkQ(i) {
 /**Stores the value in local storage */
 function storeAnswer(val) {
     event.preventDefault();
-    localStorage.setItem(val.target.id, val.target.value)
+    localStorage.setItem(val.target.id, val.target.value);
 
 }
 
@@ -95,12 +95,11 @@ function storeAnswer(val) {
 /**Generates Button for answers */
 function genBtn(test) {
     event.stopPropagation()
-    var choiceBtn = document.createElement('input');
-    choiceBtn.className = 'waves-effect waves-light btn-large';
+    var choiceBtn = document.createElement('button');
+    choiceBtn.className = 'choice waves-effect waves-light btn-large red hoverable';
     choiceBtn.id = test.id;
     choiceBtn.innerHTML = test.text;
-    choiceBtn.value = test.text;
-    choiceBtn.type = "button";
+    choiceBtn.value = test.param;
     questionDiv.appendChild(choiceBtn);
     choiceBtn.addEventListener('click', storeAnswer);
 
@@ -126,12 +125,13 @@ function questionObj(qIndex) {
 /*Generate Questions*/
 function showQuestion(index) {
     event.stopPropagation();
-    //console.log(index)
+
     qCont.show();
     answerCont.show()
     questCont.show();
     strtBtn.hide();
-    if (index === questions.length) {
+    console.log('current no: ' + index);
+    if (index === questions.length - 1) {
         finBtn.show();
         nextBtn.hide();
         prevBtn.show();
@@ -163,7 +163,7 @@ function nextQ() {
         finBtn.show();
         console.log('stopped')
     }
-    //  }
+
 }
 
 /* Function for Prev Button */
@@ -180,6 +180,13 @@ function clearQuestions() {
     nextBtn.hide();
     answerCont.children().remove();
     questCont.children().remove();
+}
+
+/**Clears the results div*/
+function clearResults() {
+    index = 0;
+    resultsRow.children().remove();
+
 }
 
 
@@ -202,7 +209,7 @@ function fetchMovieData(mLength, mGenre, mwoGenre) {
                 }
                 else {
 
-                    var mvposter = $(`<img class="poster" src=${getMoviePoster(movieRes[m].poster_path)}>`);
+                    var mvposter = $(`<img class="poster responsive-img" src=${getMoviePoster(movieRes[m].poster_path)}>`);
 
                     console.log(getMoviePoster(movieRes[m].poster_path));
                 }
@@ -234,6 +241,7 @@ function getMoviePoster(jpg) {
 function getRanAct() {
     event.stopPropagation()
     strtBtn.show();
+    clearResults();
     clearQuestions()
     fetch('https://www.boredapi.com/api/activity/')
         .then(function (response) { return response.json(); })
@@ -249,7 +257,9 @@ function getRanAct() {
 
 /**Create event listner for start button. Calls function that shows first question */
 strtBtn.on('click', function () {
+    clearResults();
     clearQuestions();
+
     showQuestion(index)
 });
 
@@ -259,7 +269,9 @@ strtBtn.on('click', function () {
 finBtn.on('click', function () { finishQ() })
 function finishQ() {
     clearQuestions();
+    strtBtn.show();
     finBtn.hide();
     qCont.hide();
     fetchMovieData(localStorage.getItem("movieLen"), localStorage.getItem("movieGen"), localStorage.getItem("moviewoGen"));
+    $('.poster').fadeIn(3000);
 }
