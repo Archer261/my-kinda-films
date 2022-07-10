@@ -96,7 +96,7 @@ function storeAnswer(val) {
 function genBtn(test) {
     event.stopPropagation()
     var choiceBtn = document.createElement('button');
-    choiceBtn.className = 'choice waves-effect waves-light btn-large red hoverable';
+    choiceBtn.className = 'choice waves-effect waves-light btn-large purple darken-4 amber-text text-accent-4 hoverable';
     choiceBtn.id = test.id;
     choiceBtn.innerHTML = test.text;
     choiceBtn.value = test.param;

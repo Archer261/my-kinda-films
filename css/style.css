@@ -12,6 +12,8 @@
     display: none;
 }
 
+/* DOM Styling */
+
 h1 {
     font-family: 'Limelight', cursive;
     background-color: rgb(35, 3, 50);
@@ -21,10 +23,6 @@ h1 {
     padding: 18px;
     border-radius: 15px;
     border: solid 5px rgb(123, 101, 2);
-}
-
-h2 {
-    color: white;
 }
 
 .intro-div {
@@ -44,6 +42,18 @@ img {
     max-height: 40%;
 }
 
+a {
+    color: inherit;
+    background-color: inherit;
+    text-decoration: inherit;
+}
+
+/* Button Styling */
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
 .saved-button, .remove-button, .home-button, .custom-button, .button {
     background-color: rgb(35, 3, 50);
     padding: 15px;
@@ -51,11 +61,10 @@ img {
     border: solid 3px rgb(123, 101, 2);
     font-family: 'Signika Negative', sans-serif;
     font-size: 120%;
-    -webkit-tap-highlight-color: transparent;
 }
 
 .saved-button:hover, .home-button:hover, .custom-button:hover {
-    box-shadow: 3px 3px 3px rgb(251, 186, 251);
+    box-shadow: 3px 3px 3px rgb(180, 103, 180);
 }
 
 .saved-button, .home-button {
@@ -64,17 +73,23 @@ img {
     left: 45px;
 }
 
-#strtBtn, #prev, #next {
-    margin: 50px !important ;    
+#bored-button {
+    margin-bottom: 15px; /* spaces button away from quiz when quiz is generated */
 }
 
-#answer button {
-    margin: 10px !important;
+#strtBtn, #prev, #next {
+    margin: 50px !important; /* adds space between dynamically created quiz function buttons */
 }
+
+.choice {
+    margin: 10px !important; /* adds margins between the dynamically generated quiz answer buttons */
+}
+
+/* mobile styling */
 
 @media screen and (max-width: 1200px) {
     .saved-button, .home-button {
-        position: inherit;
+        position: inherit; /* pulls the fixed nav buttons and pulls them down below the header to they don't interrupt page flow */
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 15px;
@@ -83,7 +98,7 @@ img {
 
   @media screen and (max-width: 992px) {
     .saved-button, .home-button {
-        position: inherit;
+        position: inherit; /* pulls the fixed nav buttons and pulls them down below the header to they don't interrupt page flow */
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 15px;
